@@ -1,24 +1,16 @@
 package com.lawencon.bookleasing.dao.impl;
 
-import com.lawencon.bookleasing.config.DatabaseConnection;
 import com.lawencon.bookleasing.dao.ReturnDao;
 import com.lawencon.bookleasing.entity.RentalHeader;
 import com.lawencon.bookleasing.entity.Return;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
  * @author Rian Rivaldo Rumapea
  */
-public class ReturnDaoImpl implements ReturnDao {
-
-	private final Connection connection;
-
-	public ReturnDaoImpl(DatabaseConnection databaseConnection) {
-		this.connection = databaseConnection.getConnection();
-	}
+public class ReturnDaoImpl extends BaseDaoImpl implements ReturnDao {
 
 	@Override
 	public Double getRentalCost(String receiptNumber) throws Exception {
@@ -29,7 +21,7 @@ public class ReturnDaoImpl implements ReturnDao {
 				"RIGHT JOIN tb_r_dtl_rental AS dtl ON dtl.rental_hdr_id = hdr.id ",
 				"GROUP BY hdr.id, hdr.receipt ",
 				"HAVING hdr.receipt = ? ;");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setString(1, receiptNumber);
 
 		ResultSet resultSet = statement.executeQuery();
@@ -45,7 +37,7 @@ public class ReturnDaoImpl implements ReturnDao {
 				"INSERT INTO tb_r_return (rental_hdr_id, returned_at, user_id, total_price) ",
 				"VALUES (?, ?, ?, ?) ",
 				"RETURNING id");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setLong(1, request.getRentalHeader().getId());
 		statement.setObject(2, request.getReturnedAt());
 		statement.setLong(3, request.getUser().getId());
@@ -67,7 +59,7 @@ public class ReturnDaoImpl implements ReturnDao {
 				"FROM tb_r_return r ",
 				"RIGHT JOIN tb_r_hdr_rental hdr ON hdr.id = r.rental_hdr_id ",
 				"WHERE COALESCE(r.id, 0) = 0 AND hdr.id = ?;");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setLong(1, request.getRentalHeader().getId());
 
 		ResultSet resultSet = statement.executeQuery();

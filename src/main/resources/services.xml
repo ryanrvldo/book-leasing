@@ -4,34 +4,17 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="bookService" class="com.lawencon.bookleasing.service.impl.BookServiceImpl">
-        <constructor-arg name="publisherRepository" ref="publisherRepository"/>
-        <constructor-arg name="languageRepository" ref="languageRepository"/>
-        <constructor-arg name="bookRepository" ref="bookRepository"/>
-        <constructor-arg name="authorRepository" ref="authorRepository"/>
-        <constructor-arg name="categoryRepository" ref="categoryRepository"/>
-        <constructor-arg name="bookAuthorRepository" ref="bookAuthorRepository"/>
-        <constructor-arg name="bookCategoryRepository" ref="bookCategoryRepository"/>
-        <constructor-arg name="inventoryRepository" ref="inventoryRepository"/>
-    </bean>
-    <bean id="rentalBookService" class="com.lawencon.bookleasing.service.impl.RentalBookServiceImpl">
-        <constructor-arg name="inventoryRepository" ref="inventoryRepository"/>
-        <constructor-arg name="profileRepository" ref="profileRepository"/>
-        <constructor-arg name="customerRepository" ref="customerRepository"/>
-        <constructor-arg name="headerRepository" ref="rentalHeaderRepository"/>
-        <constructor-arg name="detailRepository" ref="rentalDetailRepository"/>
-        <constructor-arg name="userSessionCache" ref="userSessionCache"/>
-    </bean>
-    <bean id="returnBookService" class="com.lawencon.bookleasing.service.impl.ReturnBookServiceImpl">
-        <constructor-arg name="headerRepository" ref="rentalHeaderRepository"/>
-        <constructor-arg name="returnRepository" ref="returnRepository"/>
-        <constructor-arg name="userSessionCache" ref="userSessionCache"/>
-    </bean>
-    <bean id="userService" class="com.lawencon.bookleasing.service.impl.UserServiceImpl">
-        <constructor-arg name="roleRepository" ref="roleRepository"/>
-        <constructor-arg name="profileRepository" ref="profileRepository"/>
-        <constructor-arg name="userRepository" ref="userRepository"/>
-        <constructor-arg name="userSessionCache" ref="userSessionCache"/>
-    </bean>
-    
+    <bean id="bookService"
+          class="com.lawencon.bookleasing.service.impl.BookServiceImpl"
+          autowire="constructor"/>
+    <bean id="rentalBookService"
+          class="com.lawencon.bookleasing.service.impl.RentalBookServiceImpl"
+          autowire="constructor"/>
+    <bean id="returnBookService"
+          class="com.lawencon.bookleasing.service.impl.ReturnBookServiceImpl"
+          autowire="constructor"/>
+    <bean id="userService"
+          class="com.lawencon.bookleasing.service.impl.UserServiceImpl"
+          autowire="constructor"/>
+
 </beans>

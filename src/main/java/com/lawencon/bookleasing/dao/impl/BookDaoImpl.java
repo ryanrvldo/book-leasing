@@ -1,23 +1,15 @@
 package com.lawencon.bookleasing.dao.impl;
 
-import com.lawencon.bookleasing.config.DatabaseConnection;
 import com.lawencon.bookleasing.dao.BookDao;
 import com.lawencon.bookleasing.entity.Book;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
  * @author Rian Rivaldo Rumapea
  */
-public class BookDaoImpl implements BookDao {
-
-	private final Connection connection;
-
-	public BookDaoImpl(DatabaseConnection databaseConnection) {
-		this.connection = databaseConnection.getConnection();
-	}
+public class BookDaoImpl extends BaseDaoImpl implements BookDao {
 
 	@Override
 	public Book insert(Book request) throws Exception {
@@ -25,7 +17,7 @@ public class BookDaoImpl implements BookDao {
 				"INSERT INTO tb_m_book (title, isbn, publication_year, publisher_id, language_id, rental_cost, replacement_cost) ",
 				"VALUES (?, ?, ?, ?, ?, ?, ?) ",
 				"RETURNING id");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setString(1, request.getTitle());
 		statement.setString(2, request.getIsbn());
 		statement.setShort(3, request.getPublicationYear());

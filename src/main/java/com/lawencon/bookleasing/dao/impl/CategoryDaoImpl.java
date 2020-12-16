@@ -1,23 +1,15 @@
 package com.lawencon.bookleasing.dao.impl;
 
-import com.lawencon.bookleasing.config.DatabaseConnection;
 import com.lawencon.bookleasing.dao.CategoryDao;
 import com.lawencon.bookleasing.entity.Category;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
  * @author Rian Rivaldo Rumapea
  */
-public class CategoryDaoImpl implements CategoryDao {
-
-	private final Connection connection;
-
-	public CategoryDaoImpl(DatabaseConnection databaseConnection) {
-		this.connection = databaseConnection.getConnection();
-	}
+public class CategoryDaoImpl extends BaseDaoImpl implements CategoryDao {
 
 	@Override
 	public Category insert(Category request) throws Exception {
@@ -25,7 +17,7 @@ public class CategoryDaoImpl implements CategoryDao {
 				"INSERT INTO tb_m_category(category_name) ",
 				"VALUES (?) ",
 				"RETURNING id");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setString(1, request.getName());
 
 		ResultSet resultSet = statement.executeQuery();
@@ -40,7 +32,7 @@ public class CategoryDaoImpl implements CategoryDao {
 		String query = buildSQLQueryOf(
 				"SELECT * FROM tb_m_category ",
 				"WHERE lower(category_name) = lower(?) ");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setString(1, request.getName());
 
 		ResultSet resultSet = statement.executeQuery();

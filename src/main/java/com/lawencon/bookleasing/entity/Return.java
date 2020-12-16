@@ -8,50 +8,50 @@ import java.time.LocalDateTime;
  */
 public class Return {
 
-  private Long id;
-  private RentalHeader rentalHeader;
-  private LocalDateTime returnedAt;
-  private User user;
-  private BigDecimal totalPrice;
+	private Long id;
+	private RentalHeader rentalHeader;
+	private LocalDateTime returnedAt;
+	private User user;
+	private BigDecimal totalPrice;
 
-  public Long getId() {
-    return id;
-  }
+	public Long getId() {
+		return id;
+	}
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-  public RentalHeader getRentalHeader() {
-    return rentalHeader;
-  }
+	public RentalHeader getRentalHeader() {
+		return rentalHeader;
+	}
 
-  public void setRentalHeader(RentalHeader rentalHeader) {
-    this.rentalHeader = rentalHeader;
-  }
+	public void setRentalHeader(RentalHeader rentalHeader) {
+		this.rentalHeader = rentalHeader;
+	}
 
-  public LocalDateTime getReturnedAt() {
-    return returnedAt;
-  }
+	public LocalDateTime getReturnedAt() {
+		return returnedAt;
+	}
 
-  public void setReturnedAt(LocalDateTime returnedAt) {
-    this.returnedAt = returnedAt;
-  }
+	public void setReturnedAt(LocalDateTime returnedAt) {
+		this.returnedAt = returnedAt;
+	}
 
-  public User getUser() {
-    return user;
-  }
+	public User getUser() {
+		return user;
+	}
 
-  public void setUser(User user) {
-    this.user = user;
-  }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-  public BigDecimal getTotalPrice() {
-    return totalPrice;
-  }
+	public BigDecimal getTotalPrice() {
+		return totalPrice;
+	}
 
-  public void setTotalPrice(BigDecimal totalPrice) {
-    this.totalPrice = totalPrice;
-  }
+	public void setTotalPrice(BigDecimal totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 
 }

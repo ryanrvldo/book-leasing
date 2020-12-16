@@ -33,7 +33,9 @@ public class MainView extends BaseView {
 				"Choose menu: "));
 		Byte chosenMenu = this.readFromInput(Byte.class);
 
-		if (chosenMenu < 1) {
+		if (chosenMenu == null) {
+			this.show(onViewFinished);
+		} else if (chosenMenu < 1) {
 			this.show(onViewFinished);
 		} else if (chosenMenu == 1) {
 			this.login(onViewFinished, (user) -> {
@@ -61,6 +63,7 @@ public class MainView extends BaseView {
 			User validatedUser = this.userService.validateUserLogin(user);
 			userConsumer.accept(validatedUser);
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println(e.getMessage());
 			this.show(onViewFinished);
 		}

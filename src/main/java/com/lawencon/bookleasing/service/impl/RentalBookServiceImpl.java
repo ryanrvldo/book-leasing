@@ -1,9 +1,9 @@
 package com.lawencon.bookleasing.service.impl;
 
 import com.lawencon.bookleasing.entity.*;
-import com.lawencon.bookleasing.model.UserSessionCache;
 import com.lawencon.bookleasing.repository.*;
 import com.lawencon.bookleasing.service.RentalBookService;
+import com.lawencon.bookleasing.util.UserSessionCache;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,8 +20,10 @@ public class RentalBookServiceImpl implements RentalBookService {
 	private final RentalDetailRepository detailRepository;
 	private final UserSessionCache userSessionCache;
 
-	public RentalBookServiceImpl(InventoryRepository inventoryRepository, ProfileRepository profileRepository, CustomerRepository customerRepository,
-	                             RentalHeaderRepository headerRepository, RentalDetailRepository detailRepository, UserSessionCache userSessionCache) {
+	public RentalBookServiceImpl(InventoryRepository inventoryRepository, ProfileRepository profileRepository,
+	                             CustomerRepository customerRepository,
+	                             RentalHeaderRepository headerRepository, RentalDetailRepository detailRepository,
+	                             UserSessionCache userSessionCache) {
 		this.inventoryRepository = inventoryRepository;
 		this.profileRepository = profileRepository;
 		this.customerRepository = customerRepository;

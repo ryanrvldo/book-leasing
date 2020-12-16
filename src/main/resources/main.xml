@@ -4,10 +4,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<import resource="models.xml"/>
-    <import resource="daos.xml"/>
+    <import resource="data_source.xml"/>
+    <import resource="daos_jdbc.xml"/>
     <import resource="repositories.xml"/>
     <import resource="services.xml"/>
     <import resource="views.xml"/>
+    <import resource="utils.xml"/>
 
 </beans>

@@ -5,32 +5,35 @@ package com.lawencon.bookleasing.entity;
  */
 public class BookAuthor {
 
-  private Author author;
-  private Book book;
+	private Author author;
+	private Book book;
 
-  public BookAuthor(Author author) {
-    this.author = author;
-  }
+	public BookAuthor() {
+	}
 
-  public BookAuthor(Author author, Book book) {
-    this.author = author;
-    this.book = book;
-  }
+	public BookAuthor(Author author) {
+		this.author = author;
+	}
 
-  public Author getAuthor() {
-    return author;
-  }
+	public BookAuthor(Author author, Book book) {
+		this.author = author;
+		this.book = book;
+	}
 
-  public void setAuthor(Author author) {
-    this.author = author;
-  }
+	public Author getAuthor() {
+		return author;
+	}
 
-  public Book getBook() {
-    return book;
-  }
+	public void setAuthor(Author author) {
+		this.author = author;
+	}
 
-  public void setBook(Book book) {
-    this.book = book;
-  }
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
 
 }

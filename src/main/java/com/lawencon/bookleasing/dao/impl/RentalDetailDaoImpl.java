@@ -1,30 +1,22 @@
 package com.lawencon.bookleasing.dao.impl;
 
-import com.lawencon.bookleasing.config.DatabaseConnection;
 import com.lawencon.bookleasing.dao.RentalDetailDao;
 import com.lawencon.bookleasing.entity.RentalDetail;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
  * @author Rian Rivaldo Rumapea
  */
-public class RentalDetailDaoImpl implements RentalDetailDao {
-
-	private final Connection connection;
-
-	public RentalDetailDaoImpl(DatabaseConnection databaseConnection) {
-		this.connection = databaseConnection.getConnection();
-	}
+public class RentalDetailDaoImpl extends BaseDaoImpl implements RentalDetailDao {
 
 	@Override
 	public RentalDetail insert(RentalDetail request) throws Exception {
 		String query = buildSQLQueryOf(
 				"INSERT INTO tb_r_dtl_rental (rental_hdr_id, inventory_id, total_price, rental_date, return_date) ",
 				"VALUES (?, ?, ?, ?, ?) ", "RETURNING id");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setLong(1, request.getRentalHeader().getId());
 		statement.setLong(2, request.getInventory().getId());
 		statement.setBigDecimal(3, request.getTotalPrice());

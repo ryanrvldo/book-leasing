@@ -1,4 +1,4 @@
-package com.lawencon.bookleasing.model;
+package com.lawencon.bookleasing.util;
 
 import com.lawencon.bookleasing.entity.User;
 

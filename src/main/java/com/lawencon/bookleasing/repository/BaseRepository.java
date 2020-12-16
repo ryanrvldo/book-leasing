@@ -5,8 +5,8 @@ package com.lawencon.bookleasing.repository;
  */
 public interface BaseRepository<T> {
 
-  T add(T request) throws Exception;
+	T add(T request) throws Exception;
 
-  T get(T request) throws Exception;
+	T get(T request) throws Exception;
 
 }

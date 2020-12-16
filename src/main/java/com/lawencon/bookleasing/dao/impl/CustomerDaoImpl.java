@@ -1,23 +1,15 @@
 package com.lawencon.bookleasing.dao.impl;
 
-import com.lawencon.bookleasing.config.DatabaseConnection;
 import com.lawencon.bookleasing.dao.CustomerDao;
 import com.lawencon.bookleasing.entity.Customer;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
  * @author Rian Rivaldo Rumapea
  */
-public class CustomerDaoImpl implements CustomerDao {
-
-	private final Connection connection;
-
-	public CustomerDaoImpl(DatabaseConnection databaseConnection) {
-		this.connection = databaseConnection.getConnection();
-	}
+public class CustomerDaoImpl extends BaseDaoImpl implements CustomerDao {
 
 	@Override
 	public Customer insert(Customer request) throws Exception {
@@ -25,7 +17,7 @@ public class CustomerDaoImpl implements CustomerDao {
 				"INSERT INTO tb_m_customer (profile_id) ",
 				"VALUES (?) ",
 				"RETURNING id");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setLong(1, request.getProfile().getId());
 
 		ResultSet resultSet = statement.executeQuery();

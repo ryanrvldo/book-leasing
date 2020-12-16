@@ -1,25 +1,17 @@
 package com.lawencon.bookleasing.dao.impl;
 
-import com.lawencon.bookleasing.config.DatabaseConnection;
 import com.lawencon.bookleasing.dao.BookAuthorDao;
 import com.lawencon.bookleasing.entity.Author;
 import com.lawencon.bookleasing.entity.Book;
 import com.lawencon.bookleasing.entity.BookAuthor;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
  * @author Rian Rivaldo Rumapea
  */
-public class BookAuthorDaoImpl implements BookAuthorDao {
-
-	private final Connection connection;
-
-	public BookAuthorDaoImpl(DatabaseConnection databaseConnection) {
-		this.connection = databaseConnection.getConnection();
-	}
+public class BookAuthorDaoImpl extends BaseDaoImpl implements BookAuthorDao {
 
 	@Override
 	public BookAuthor insert(BookAuthor request) throws Exception {
@@ -27,7 +19,7 @@ public class BookAuthorDaoImpl implements BookAuthorDao {
 				"INSERT INTO tb_m_book_author (author_id, book_id) ",
 				"VALUES (?, ?) ",
 				"RETURNING author_id ");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setLong(1, request.getAuthor().getId());
 		statement.setLong(2, request.getBook().getId());
 
@@ -43,7 +35,7 @@ public class BookAuthorDaoImpl implements BookAuthorDao {
 		String query = buildSQLQueryOf(
 				"SELECT * FROM tb_m_book_author ",
 				"WHERE author_id = ? AND book_id = ? ");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setLong(1, request.getAuthor().getId());
 		statement.setLong(2, request.getBook().getId());
 

@@ -5,50 +5,53 @@ package com.lawencon.bookleasing.entity;
  */
 public class Language {
 
-  private Long id;
-  private String code;
-  private String name;
+	private Long id;
+	private String code;
+	private String name;
 
-  public Language(Long id) {
-    this.id = id;
-  }
+	public Language() {
+	}
 
-  public Language(String code, String name) {
-    this.code = code;
-    this.name = name;
-  }
+	public Language(Long id) {
+		this.id = id;
+	}
 
-  public Language(Long id, String code) {
-    this.id = id;
-    this.code = code;
-  }
+	public Language(String code, String name) {
+		this.code = code;
+		this.name = name;
+	}
 
-  public Language(String code) {
-    this.code = code;
-  }
+	public Language(Long id, String code) {
+		this.id = id;
+		this.code = code;
+	}
 
-  public Long getId() {
-    return id;
-  }
+	public Language(String code) {
+		this.code = code;
+	}
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+	public Long getId() {
+		return id;
+	}
 
-  public String getCode() {
-    return code;
-  }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-  public void setCode(String code) {
-    this.code = code;
-  }
+	public String getCode() {
+		return code;
+	}
 
-  public String getName() {
-    return name;
-  }
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }

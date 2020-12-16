@@ -3,50 +3,50 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="authorRepository" class="com.lawencon.bookleasing.repository.impl.AuthorRepositoryImpl">
-        <constructor-arg ref="authorDao"/>
-    </bean>
-    <bean id="bookAuthorRepository" class="com.lawencon.bookleasing.repository.impl.BookAuthorRepositoryImpl">
-        <constructor-arg ref="bookAuthorDao"/>
-    </bean>
-    <bean id="bookCategoryRepository" class="com.lawencon.bookleasing.repository.impl.BookCategoryRepositoryImpl">
-        <constructor-arg ref="bookCategoryDao"/>
-    </bean>
-    <bean id="bookRepository" class="com.lawencon.bookleasing.repository.impl.BookRepositoryImpl">
-        <constructor-arg ref="bookDao"/>
-    </bean>
-    <bean id="categoryRepository" class="com.lawencon.bookleasing.repository.impl.CategoryRepositoryImpl">
-        <constructor-arg ref="categoryDao"/>
-    </bean>
-    <bean id="customerRepository" class="com.lawencon.bookleasing.repository.impl.CustomerRepositoryImpl">
-        <constructor-arg ref="customerDao"/>
-    </bean>
-    <bean id="inventoryRepository" class="com.lawencon.bookleasing.repository.impl.InventoryRepositoryImpl">
-        <constructor-arg ref="inventoryDao"/>
-    </bean>
-    <bean id="languageRepository" class="com.lawencon.bookleasing.repository.impl.LanguageRepositoryImpl">
-        <constructor-arg ref="languageDao"/>
-    </bean>
-    <bean id="profileRepository" class="com.lawencon.bookleasing.repository.impl.ProfileRepositoryImpl">
-        <constructor-arg ref="profileDao"/>
-    </bean>
-    <bean id="publisherRepository" class="com.lawencon.bookleasing.repository.impl.PublisherRepositoryImpl">
-        <constructor-arg ref="publisherDao"/>
-    </bean>
-    <bean id="rentalDetailRepository" class="com.lawencon.bookleasing.repository.impl.RentalDetailRepositoryImpl">
-        <constructor-arg ref="rentalDetailDao"/>
-    </bean>
-    <bean id="rentalHeaderRepository" class="com.lawencon.bookleasing.repository.impl.RentalHeaderRepositoryImpl">
-        <constructor-arg ref="rentalHeaderDao"/>
-    </bean>
-    <bean id="returnRepository" class="com.lawencon.bookleasing.repository.impl.ReturnRepositoryImpl">
-        <constructor-arg ref="returnDao"/>
-    </bean>
-    <bean id="roleRepository" class="com.lawencon.bookleasing.repository.impl.RoleRepositoryImpl">
-        <constructor-arg ref="roleDao"/>
-    </bean>
-    <bean id="userRepository" class="com.lawencon.bookleasing.repository.impl.UserRepositoryImpl">
-        <constructor-arg ref="userDao"/>
-    </bean>
+    <bean id="authorRepository"
+          class="com.lawencon.bookleasing.repository.impl.AuthorRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="bookAuthorRepository"
+          class="com.lawencon.bookleasing.repository.impl.BookAuthorRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="bookCategoryRepository"
+          class="com.lawencon.bookleasing.repository.impl.BookCategoryRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="bookRepository"
+          class="com.lawencon.bookleasing.repository.impl.BookRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="categoryRepository"
+          class="com.lawencon.bookleasing.repository.impl.CategoryRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="customerRepository"
+          class="com.lawencon.bookleasing.repository.impl.CustomerRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="inventoryRepository"
+          class="com.lawencon.bookleasing.repository.impl.InventoryRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="languageRepository"
+          class="com.lawencon.bookleasing.repository.impl.LanguageRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="profileRepository"
+          class="com.lawencon.bookleasing.repository.impl.ProfileRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="publisherRepository"
+          class="com.lawencon.bookleasing.repository.impl.PublisherRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="rentalDetailRepository"
+          class="com.lawencon.bookleasing.repository.impl.RentalDetailRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="rentalHeaderRepository"
+          class="com.lawencon.bookleasing.repository.impl.RentalHeaderRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="returnRepository"
+          class="com.lawencon.bookleasing.repository.impl.ReturnRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="roleRepository"
+          class="com.lawencon.bookleasing.repository.impl.RoleRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="userRepository"
+          class="com.lawencon.bookleasing.repository.impl.UserRepositoryImpl"
+          autowire="constructor"/>
 
 </beans>

@@ -5,32 +5,32 @@ package com.lawencon.bookleasing.entity;
  */
 public class Role {
 
-  private Long id;
-  private String code;
-  private String name;
+	private Long id;
+	private String code;
+	private String name;
 
-  public Long getId() {
-    return id;
-  }
+	public Long getId() {
+		return id;
+	}
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-  public String getCode() {
-    return code;
-  }
+	public String getCode() {
+		return code;
+	}
 
-  public void setCode(String code) {
-    this.code = code;
-  }
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-  public String getName() {
-    return name;
-  }
+	public String getName() {
+		return name;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }

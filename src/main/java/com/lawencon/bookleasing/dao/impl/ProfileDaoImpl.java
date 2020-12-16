@@ -1,23 +1,15 @@
 package com.lawencon.bookleasing.dao.impl;
 
-import com.lawencon.bookleasing.config.DatabaseConnection;
 import com.lawencon.bookleasing.dao.ProfileDao;
 import com.lawencon.bookleasing.entity.Profile;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
  * @author Rian Rivaldo Rumapea
  */
-public class ProfileDaoImpl implements ProfileDao {
-
-	private final Connection connection;
-
-	public ProfileDaoImpl(DatabaseConnection databaseConnection) {
-		this.connection = databaseConnection.getConnection();
-	}
+public class ProfileDaoImpl extends BaseDaoImpl implements ProfileDao {
 
 	@Override
 	public Profile insert(Profile request) throws Exception {
@@ -25,7 +17,7 @@ public class ProfileDaoImpl implements ProfileDao {
 				"INSERT INTO tb_m_profile (first_name, last_name, email, phone) ",
 				"VALUES (?, ?, ?, ?) ",
 				"RETURNING id ");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setString(1, request.getFirstName());
 		statement.setString(2, request.getLastName());
 		statement.setString(3, request.getEmail());

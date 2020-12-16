@@ -10,7 +10,7 @@ public class Customer {
 	private Long id;
 	private Profile profile;
 	private LocalDateTime createdAt;
-	
+
 	public Long getId() {
 		return id;
 	}

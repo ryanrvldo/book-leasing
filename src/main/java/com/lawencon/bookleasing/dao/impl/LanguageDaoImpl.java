@@ -1,23 +1,15 @@
 package com.lawencon.bookleasing.dao.impl;
 
-import com.lawencon.bookleasing.config.DatabaseConnection;
 import com.lawencon.bookleasing.dao.LanguageDao;
 import com.lawencon.bookleasing.entity.Language;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
  * @author Rian Rivaldo Rumapea
  */
-public class LanguageDaoImpl implements LanguageDao {
-
-	private final Connection connection;
-
-	public LanguageDaoImpl(DatabaseConnection databaseConnection) {
-		this.connection = databaseConnection.getConnection();
-	}
+public class LanguageDaoImpl extends BaseDaoImpl implements LanguageDao {
 
 	@Override
 	public Language insert(Language request) throws Exception {
@@ -25,7 +17,7 @@ public class LanguageDaoImpl implements LanguageDao {
 				"INSERT INTO tb_m_language (code, language_name) ",
 				"VALUES (?, ?) ",
 				"RETURNING id");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setString(1, request.getCode());
 		statement.setString(2, request.getName());
 
@@ -42,7 +34,7 @@ public class LanguageDaoImpl implements LanguageDao {
 				"SELECT id, code ",
 				"FROM tb_m_language ",
 				"WHERE lower(code) = lower(?) ");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setString(1, request.getCode());
 
 		ResultSet resultSet = statement.executeQuery();

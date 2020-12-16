@@ -1,23 +1,15 @@
 package com.lawencon.bookleasing.dao.impl;
 
-import com.lawencon.bookleasing.config.DatabaseConnection;
 import com.lawencon.bookleasing.dao.RentalHeaderDao;
 import com.lawencon.bookleasing.entity.RentalHeader;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
  * @author Rian Rivaldo Rumapea
  */
-public class RentalHeaderDaoImpl implements RentalHeaderDao {
-
-	private final Connection connection;
-
-	public RentalHeaderDaoImpl(DatabaseConnection databaseConnection) {
-		this.connection = databaseConnection.getConnection();
-	}
+public class RentalHeaderDaoImpl extends BaseDaoImpl implements RentalHeaderDao {
 
 	@Override
 	public RentalHeader insert(RentalHeader request) throws Exception {
@@ -25,7 +17,7 @@ public class RentalHeaderDaoImpl implements RentalHeaderDao {
 				"INSERT INTO tb_r_hdr_rental (receipt, customer_id, user_id) ",
 				"VALUES (?, ?, ?) ",
 				"RETURNING id");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setString(1, request.getReceipt());
 		statement.setLong(2, request.getCustomer().getId());
 		statement.setLong(3, request.getUser().getId());
@@ -45,7 +37,7 @@ public class RentalHeaderDaoImpl implements RentalHeaderDao {
 				"SELECT id, receipt ",
 				"FROM tb_r_hdr_rental ",
 				"WHERE receipt = ? ");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setString(1, request.getReceipt());
 
 		ResultSet resultSet = statement.executeQuery();

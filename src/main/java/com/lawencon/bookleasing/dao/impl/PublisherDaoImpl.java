@@ -1,23 +1,15 @@
 package com.lawencon.bookleasing.dao.impl;
 
-import com.lawencon.bookleasing.config.DatabaseConnection;
 import com.lawencon.bookleasing.dao.PublisherDao;
 import com.lawencon.bookleasing.entity.Publisher;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
  * @author Rian Rivaldo Rumapea
  */
-public class PublisherDaoImpl implements PublisherDao {
-
-	private final Connection connection;
-
-	public PublisherDaoImpl(DatabaseConnection databaseConnection) {
-		this.connection = databaseConnection.getConnection();
-	}
+public class PublisherDaoImpl extends BaseDaoImpl implements PublisherDao {
 
 	@Override
 	public Publisher insert(Publisher request) throws Exception {
@@ -25,7 +17,7 @@ public class PublisherDaoImpl implements PublisherDao {
 				"INSERT INTO tb_m_publisher(publisher_name, code, city) ",
 				"VALUES (?, ?, ?) ",
 				"RETURNING id ");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setString(1, request.getName());
 		statement.setString(2, request.getCode());
 		statement.setString(3, request.getCity());
@@ -45,7 +37,7 @@ public class PublisherDaoImpl implements PublisherDao {
 				"SELECT id, code ",
 				"FROM tb_m_publisher ",
 				"WHERE lower(code) = lower(?) ");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setString(1, request.getCode());
 
 		ResultSet resultSet = statement.executeQuery();

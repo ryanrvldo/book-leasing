@@ -3,11 +3,11 @@ package com.lawencon.bookleasing.service.impl;
 import com.lawencon.bookleasing.entity.Profile;
 import com.lawencon.bookleasing.entity.Role;
 import com.lawencon.bookleasing.entity.User;
-import com.lawencon.bookleasing.model.UserSessionCache;
 import com.lawencon.bookleasing.repository.ProfileRepository;
 import com.lawencon.bookleasing.repository.RoleRepository;
 import com.lawencon.bookleasing.repository.UserRepository;
 import com.lawencon.bookleasing.service.UserService;
+import com.lawencon.bookleasing.util.UserSessionCache;
 
 import javax.security.auth.login.FailedLoginException;
 import java.util.Optional;

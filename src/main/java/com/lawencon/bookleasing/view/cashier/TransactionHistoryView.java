@@ -8,10 +8,10 @@ import com.lawencon.bookleasing.view.BaseView;
  */
 public class TransactionHistoryView extends BaseView {
 
-  @Override
-  public void show(OnViewFinished onViewFinished) {
-    System.out.print("Under Construction.");
-    onViewFinished.onFinished();
-  }
+	@Override
+	public void show(OnViewFinished onViewFinished) {
+		System.out.print("Under Construction.");
+		onViewFinished.onFinished();
+	}
 
 }

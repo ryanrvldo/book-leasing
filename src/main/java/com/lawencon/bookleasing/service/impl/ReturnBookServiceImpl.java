@@ -3,10 +3,10 @@ package com.lawencon.bookleasing.service.impl;
 import com.lawencon.bookleasing.entity.RentalHeader;
 import com.lawencon.bookleasing.entity.Return;
 import com.lawencon.bookleasing.entity.User;
-import com.lawencon.bookleasing.model.UserSessionCache;
 import com.lawencon.bookleasing.repository.RentalHeaderRepository;
 import com.lawencon.bookleasing.repository.ReturnRepository;
 import com.lawencon.bookleasing.service.ReturnBookService;
+import com.lawencon.bookleasing.util.UserSessionCache;
 
 import java.math.BigDecimal;
 import java.util.Optional;

@@ -1,11 +1,9 @@
 package com.lawencon.bookleasing.dao.impl;
 
-import com.lawencon.bookleasing.config.DatabaseConnection;
 import com.lawencon.bookleasing.dao.InventoryDao;
 import com.lawencon.bookleasing.entity.Book;
 import com.lawencon.bookleasing.entity.Inventory;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -15,13 +13,7 @@ import java.util.List;
 /**
  * @author Rian Rivaldo Rumapea
  */
-public class InventoryDaoImpl implements InventoryDao {
-
-	private final Connection connection;
-
-	public InventoryDaoImpl(DatabaseConnection databaseConnection) {
-		this.connection = databaseConnection.getConnection();
-	}
+public class InventoryDaoImpl extends BaseDaoImpl implements InventoryDao {
 
 	@Override
 	public Inventory insert(Inventory request) throws Exception {
@@ -29,7 +21,7 @@ public class InventoryDaoImpl implements InventoryDao {
 				"INSERT INTO tb_m_inventory (book_id) ",
 				"VALUES (?) ",
 				"RETURNING id ; ");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setLong(1, request.getBook().getId());
 
 		ResultSet resultSet = statement.executeQuery();
@@ -48,7 +40,7 @@ public class InventoryDaoImpl implements InventoryDao {
 				"LEFT JOIN tb_r_dtl_rental dtl ON dtl.inventory_id = i.id ",
 				"LEFT JOIN tb_r_return rtr ON rtr.rental_hdr_id = dtl .rental_hdr_id ",
 				"WHERE (rtr.returned_at <= now() OR dtl.id IS NULL) AND b.isbn = ? ;");
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = getConnection().prepareStatement(query);
 		statement.setString(1, request.getBook().getIsbn());
 
 		ResultSet resultSet = statement.executeQuery();
@@ -83,7 +75,7 @@ public class InventoryDaoImpl implements InventoryDao {
 				"LEFT JOIN tb_r_dtl_rental dtl ON dtl.inventory_id = i.id ",
 				"LEFT JOIN tb_r_return rtr ON rtr.rental_hdr_id = dtl.rental_hdr_id ",
 				"WHERE rtr.returned_at <= now() OR dtl.id IS null;");
-		Statement statement = connection.createStatement();
+		Statement statement = getConnection().createStatement();
 		ResultSet resultSet = statement.executeQuery(query);
 
 		List<Inventory> resultList = new ArrayList<>();

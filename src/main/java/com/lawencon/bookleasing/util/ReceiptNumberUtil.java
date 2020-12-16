@@ -7,8 +7,8 @@ import java.time.Instant;
  */
 public class ReceiptNumberUtil {
 
-  public static String getReceiptNumber() {
-    return String.format("TRX%d", Instant.now().toEpochMilli());
-  }
+	public static String getReceiptNumber() {
+		return String.format("TRX%d", Instant.now().toEpochMilli());
+	}
 
 }
