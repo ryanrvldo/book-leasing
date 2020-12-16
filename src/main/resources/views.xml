@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="mainView" class="com.lawencon.bookleasing.view.MainView">
+        <constructor-arg name="userService" ref="userService"/>
+        <constructor-arg name="adminView" ref="adminView"/>
+        <constructor-arg name="cashierView" ref="cashierView"/>
+    </bean>
+
+    <!--  Admin	-->
+    <bean id="adminView" class="com.lawencon.bookleasing.view.admin.AdminView">
+        <constructor-arg name="addBookView" ref="addBookView"/>
+        <constructor-arg name="deleteBookView" ref="deleteBookView"/>
+        <constructor-arg name="addUserView" ref="addUserView"/>
+        <constructor-arg name="userService" ref="userService"/>
+    </bean>
+    <bean id="addBookView" class="com.lawencon.bookleasing.view.admin.AddBookView">
+        <constructor-arg name="service" ref="bookService"/>
+    </bean>
+    <bean id="deleteBookView" class="com.lawencon.bookleasing.view.admin.DeleteBookView">
+    </bean>
+    <bean id="addUserView" class="com.lawencon.bookleasing.view.admin.AddUserView">
+        <constructor-arg name="service" ref="userService"/>
+    </bean>
+
+    <!--  Cashier	-->
+    <bean id="cashierView" class="com.lawencon.bookleasing.view.cashier.CashierView">
+        <constructor-arg name="rentalBookView" ref="rentalBookView"/>
+        <constructor-arg name="returnBookView" ref="returnBookView"/>
+        <constructor-arg name="transactionHistoryView" ref="transactionHistoryView"/>
+        <constructor-arg name="userService" ref="userService"/>
+    </bean>
+    <bean id="rentalBookView" class="com.lawencon.bookleasing.view.cashier.RentalBookView">
+        <constructor-arg name="service" ref="rentalBookService"/>
+    </bean>
+    <bean id="returnBookView" class="com.lawencon.bookleasing.view.cashier.ReturnBookView">
+        <constructor-arg name="service" ref="returnBookService"/>
+    </bean>
+    <bean id="transactionHistoryView" class="com.lawencon.bookleasing.view.cashier.TransactionHistoryView">
+    </bean>
+
+</beans>

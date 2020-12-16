@@ -1,0 +1,54 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="data_source.xml"/>
+
+    <bean id="authorDao" class="com.lawencon.bookleasing.dao.impl.AuthorDaoImpl">
+        <constructor-arg ref="dbConnection"/>
+    </bean>
+    <bean id="bookAuthorDao" class="com.lawencon.bookleasing.dao.impl.BookAuthorDaoImpl">
+        <constructor-arg ref="dbConnection"/>
+    </bean>
+    <bean id="bookCategoryDao" class="com.lawencon.bookleasing.dao.impl.BookCategoryDaoImpl">
+        <constructor-arg ref="dbConnection"/>
+    </bean>
+    <bean id="bookDao" class="com.lawencon.bookleasing.dao.impl.BookDaoImpl">
+        <constructor-arg ref="dbConnection"/>
+    </bean>
+    <bean id="categoryDao" class="com.lawencon.bookleasing.dao.impl.CategoryDaoImpl">
+        <constructor-arg ref="dbConnection"/>
+    </bean>
+    <bean id="customerDao" class="com.lawencon.bookleasing.dao.impl.CustomerDaoImpl">
+        <constructor-arg ref="dbConnection"/>
+    </bean>
+    <bean id="inventoryDao" class="com.lawencon.bookleasing.dao.impl.InventoryDaoImpl">
+        <constructor-arg ref="dbConnection"/>
+    </bean>
+    <bean id="languageDao" class="com.lawencon.bookleasing.dao.impl.LanguageDaoImpl">
+        <constructor-arg ref="dbConnection"/>
+    </bean>
+    <bean id="profileDao" class="com.lawencon.bookleasing.dao.impl.ProfileDaoImpl">
+        <constructor-arg ref="dbConnection"/>
+    </bean>
+    <bean id="publisherDao" class="com.lawencon.bookleasing.dao.impl.PublisherDaoImpl">
+        <constructor-arg ref="dbConnection"/>
+    </bean>
+    <bean id="rentalDetailDao" class="com.lawencon.bookleasing.dao.impl.RentalDetailDaoImpl">
+        <constructor-arg ref="dbConnection"/>
+    </bean>
+    <bean id="rentalHeaderDao" class="com.lawencon.bookleasing.dao.impl.RentalHeaderDaoImpl">
+        <constructor-arg ref="dbConnection"/>
+    </bean>
+    <bean id="returnDao" class="com.lawencon.bookleasing.dao.impl.ReturnDaoImpl">
+        <constructor-arg ref="dbConnection"/>
+    </bean>
+    <bean id="roleDao" class="com.lawencon.bookleasing.dao.impl.RoleDaoImpl">
+        <constructor-arg ref="dbConnection"/>
+    </bean>
+    <bean id="userDao" class="com.lawencon.bookleasing.dao.impl.UserDaoImpl">
+        <constructor-arg ref="dbConnection"/>
+    </bean>
+
+</beans>
