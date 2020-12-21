@@ -1,0 +1,30 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.lawencon.bookleasing.entity.RentalDetail" table="tb_r_dtl_rental">
+        <id name="id">
+            <generator class="identity"/>
+        </id>
+        <many-to-one name="rentalHeader" class="com.lawencon.bookleasing.entity.RentalHeader">
+            <column name="rental_hdr_id" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="inventory" class="com.lawencon.bookleasing.entity.Inventory">
+            <column name="inventory_id" not-null="true"/>
+        </many-to-one>
+        <property name="totalPrice">
+            <column name="total_price"/>
+        </property>
+        <property name="rentalDate">
+            <column name="rental_date" not-null="true"/>
+        </property>
+        <property name="returnDate">
+            <column name="return_date" not-null="true"/>
+        </property>
+
+    </class>
+
+</hibernate-mapping>

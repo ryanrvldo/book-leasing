@@ -16,8 +16,8 @@ public class RentalHeaderRepositoryImpl implements RentalHeaderRepository {
 	}
 
 	@Override
-	public RentalHeader add(RentalHeader request) throws Exception {
-		return this.dao.insert(request);
+	public void add(RentalHeader request) throws Exception {
+		this.dao.insert(request);
 	}
 
 	@Override

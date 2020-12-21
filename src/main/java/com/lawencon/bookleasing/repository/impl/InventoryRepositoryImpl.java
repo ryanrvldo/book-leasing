@@ -24,13 +24,13 @@ public class InventoryRepositoryImpl implements InventoryRepository {
 	}
 
 	@Override
-	public Inventory add(Inventory request) throws Exception {
-		return dao.insert(request);
+	public void add(Inventory request) throws Exception {
+		this.dao.insert(request);
 	}
 
 	@Override
 	public Inventory get(Inventory request) throws Exception {
-		return dao.get(request);
+		return this.dao.get(request);
 	}
 
 }

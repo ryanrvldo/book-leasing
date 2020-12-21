@@ -16,8 +16,8 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 	}
 
 	@Override
-	public Category add(Category request) throws Exception {
-		return dao.insert(request);
+	public void add(Category request) throws Exception {
+		this.dao.insert(request);
 	}
 
 	@Override

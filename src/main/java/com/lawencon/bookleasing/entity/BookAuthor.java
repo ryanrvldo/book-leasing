@@ -5,6 +5,7 @@ package com.lawencon.bookleasing.entity;
  */
 public class BookAuthor {
 
+	private Long id;
 	private Author author;
 	private Book book;
 
@@ -18,6 +19,14 @@ public class BookAuthor {
 	public BookAuthor(Author author, Book book) {
 		this.author = author;
 		this.book = book;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Author getAuthor() {

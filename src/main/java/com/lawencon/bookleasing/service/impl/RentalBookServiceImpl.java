@@ -1,75 +1,103 @@
 package com.lawencon.bookleasing.service.impl;
 
-import com.lawencon.bookleasing.entity.*;
-import com.lawencon.bookleasing.repository.*;
+import java.util.List;
+
+import org.springframework.transaction.support.TransactionTemplate;
+
+import com.lawencon.bookleasing.entity.Book;
+import com.lawencon.bookleasing.entity.Customer;
+import com.lawencon.bookleasing.entity.Inventory;
+import com.lawencon.bookleasing.entity.Profile;
+import com.lawencon.bookleasing.entity.RentalDetail;
+import com.lawencon.bookleasing.entity.RentalHeader;
+import com.lawencon.bookleasing.entity.User;
+import com.lawencon.bookleasing.repository.CustomerRepository;
+import com.lawencon.bookleasing.repository.InventoryRepository;
+import com.lawencon.bookleasing.repository.ProfileRepository;
+import com.lawencon.bookleasing.repository.RentalDetailRepository;
+import com.lawencon.bookleasing.repository.RentalHeaderRepository;
 import com.lawencon.bookleasing.service.RentalBookService;
 import com.lawencon.bookleasing.util.UserSessionCache;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Rian Rivaldo Rumapea
  */
 public class RentalBookServiceImpl implements RentalBookService {
 
-	private final InventoryRepository inventoryRepository;
-	private final ProfileRepository profileRepository;
-	private final CustomerRepository customerRepository;
-	private final RentalHeaderRepository headerRepository;
-	private final RentalDetailRepository detailRepository;
-	private final UserSessionCache userSessionCache;
+  private final InventoryRepository inventoryRepository;
+  private final ProfileRepository profileRepository;
+  private final CustomerRepository customerRepository;
+  private final RentalHeaderRepository headerRepository;
+  private final RentalDetailRepository detailRepository;
+  private final UserSessionCache userSessionCache;
+  private final TransactionTemplate transactionTemplate;
 
-	public RentalBookServiceImpl(InventoryRepository inventoryRepository, ProfileRepository profileRepository,
-	                             CustomerRepository customerRepository,
-	                             RentalHeaderRepository headerRepository, RentalDetailRepository detailRepository,
-	                             UserSessionCache userSessionCache) {
-		this.inventoryRepository = inventoryRepository;
-		this.profileRepository = profileRepository;
-		this.customerRepository = customerRepository;
-		this.headerRepository = headerRepository;
-		this.detailRepository = detailRepository;
-		this.userSessionCache = userSessionCache;
-	}
+  public RentalBookServiceImpl(InventoryRepository inventoryRepository, ProfileRepository profileRepository,
+      CustomerRepository customerRepository,
+      RentalHeaderRepository headerRepository, RentalDetailRepository detailRepository,
+      UserSessionCache userSessionCache, TransactionTemplate transactionTemplate) {
+    this.inventoryRepository = inventoryRepository;
+    this.profileRepository = profileRepository;
+    this.customerRepository = customerRepository;
+    this.headerRepository = headerRepository;
+    this.detailRepository = detailRepository;
+    this.userSessionCache = userSessionCache;
+    this.transactionTemplate = transactionTemplate;
+  }
 
-	@Override
-	public List<Inventory> getInventoryList() throws Exception {
-		return Optional.ofNullable(this.inventoryRepository.getInventoryList())
-				.orElseThrow();
-	}
+  @Override
+  public List<Inventory> getInventoryList() throws Exception {
+    return transactionTemplate.execute(val -> {
+      try {
+        return this.inventoryRepository.getInventoryList();
+      } catch (Exception e) {
+        e.printStackTrace();
+        return null;
+      }
+    });
+  }
 
-	@Override
-	public Inventory getInventoryByIsbn(String isbn) throws Exception {
-		Book book = new Book();
-		book.setIsbn(isbn);
-		Inventory inventory = new Inventory();
-		inventory.setBook(book);
-		return Optional.ofNullable(this.inventoryRepository.get(inventory))
-				.orElseThrow(() -> new NullPointerException(String.format("There is no book with %s ISBN.", isbn)));
-	}
+  @Override
+  public Inventory getInventoryByIsbn(String isbn) throws Exception {
+    Book book = new Book();
+    book.setIsbn(isbn);
+    Inventory inventory = new Inventory();
+    inventory.setBook(book);
+    return transactionTemplate.execute(val -> {
+      try {
+        return this.inventoryRepository.get(inventory);
+      } catch (Exception e) {
+        e.printStackTrace();
+        return null;
+      }
+    });
+  }
 
-	@Override
-	public void addRentalTransaction(RentalHeader header, List<RentalDetail> details) throws Exception {
-		Profile profile = Optional.ofNullable(this.profileRepository.add(header.getCustomer().getProfile()))
-				.orElseThrow();
-		header.getCustomer().setProfile(profile);
+  @Override
+  public void addRentalTransaction(RentalHeader header, List<RentalDetail> details) {
+    transactionTemplate.executeWithoutResult(val -> {
+      try {
+        Profile customerProfile = header.getCustomer().getProfile();
+        this.profileRepository.add(customerProfile);
+        header.getCustomer().setProfile(customerProfile);
 
-		Customer customer = Optional.ofNullable(this.customerRepository.add(header.getCustomer()))
-				.orElseThrow(NullPointerException::new);
-		header.setCustomer(customer);
+        Customer customer = header.getCustomer();
+        this.customerRepository.add(header.getCustomer());
+        header.setCustomer(customer);
 
-		User activeUser = Optional.ofNullable(this.userSessionCache.getActiveUser())
-				.orElseThrow(() -> new NullPointerException("There is no active user."));
-		header.setUser(activeUser);
+        User activeUser = this.userSessionCache.getActiveUser();
+        header.setUser(activeUser);
 
-		RentalHeader resultHeader = Optional.ofNullable(this.headerRepository.add(header))
-				.orElseThrow(() -> new Exception("Failed to add rental header."));
+        this.headerRepository.add(header);
 
-		for (RentalDetail detail : details) {
-			detail.setRentalHeader(resultHeader);
-			Optional.ofNullable(this.detailRepository.add(detail))
-					.orElseThrow(() -> new Exception("Failed to add rental detail."));
-		}
-	}
+        for (RentalDetail detail : details) {
+          detail.setRentalHeader(header);
+          this.detailRepository.add(detail);
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    });
+  }
 
 }

@@ -16,8 +16,8 @@ public class ProfileRepositoryImpl implements ProfileRepository {
 	}
 
 	@Override
-	public Profile add(Profile request) throws Exception {
-		return this.dao.insert(request);
+	public void add(Profile request) throws Exception {
+		this.dao.insert(request);
 	}
 
 	@Override

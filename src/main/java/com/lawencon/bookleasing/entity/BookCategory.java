@@ -5,6 +5,7 @@ package com.lawencon.bookleasing.entity;
  */
 public class BookCategory {
 
+	private Long id;
 	private Book book;
 	private Category category;
 
@@ -17,8 +18,16 @@ public class BookCategory {
 		this.book = book;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Book getBook() {
-		return book;
+		return this.book;
 	}
 
 	public void setBook(Book book) {

@@ -63,7 +63,6 @@ public class MainView extends BaseView {
 			User validatedUser = this.userService.validateUserLogin(user);
 			userConsumer.accept(validatedUser);
 		} catch (Exception e) {
-			e.printStackTrace();
 			System.out.println(e.getMessage());
 			this.show(onViewFinished);
 		}

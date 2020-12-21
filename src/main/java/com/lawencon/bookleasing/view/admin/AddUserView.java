@@ -67,8 +67,8 @@ public class AddUserView extends BaseView {
 		user.setRole(role);
 
 		try {
-			User addedUser = service.addNewUser(user);
-			System.out.printf("Success added %s to database!", addedUser.getUsername());
+			service.addNewUser(user);
+			System.out.printf("Success added %s to database!", user.getUsername());
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());

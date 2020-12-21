@@ -32,6 +32,6 @@ public interface UserService {
 	 * @return user that have been added
 	 * @throws Exception throws if user was not added successfully
 	 */
-	User addNewUser(User user) throws Exception;
+	void addNewUser(User user) throws Exception;
 
 }

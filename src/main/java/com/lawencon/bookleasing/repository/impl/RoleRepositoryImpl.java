@@ -16,12 +16,12 @@ public class RoleRepositoryImpl implements RoleRepository {
 	}
 
 	@Override
-	public Role add(Role request) throws Exception {
-		throw new IllegalAccessException();
+	public Role get(Role request) throws Exception {
+		return this.dao.get(request);
 	}
 
 	@Override
-	public Role get(Role request) throws Exception {
-		return dao.get(request);
+	public void add(Role request) throws Exception {
+		throw new IllegalAccessException();
 	}
 }

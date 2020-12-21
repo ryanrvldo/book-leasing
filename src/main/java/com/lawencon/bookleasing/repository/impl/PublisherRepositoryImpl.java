@@ -16,8 +16,8 @@ public class PublisherRepositoryImpl implements PublisherRepository {
 	}
 
 	@Override
-	public Publisher add(Publisher request) throws Exception {
-		return this.dao.insert(request);
+	public void add(Publisher request) throws Exception {
+		this.dao.insert(request);
 	}
 
 	@Override

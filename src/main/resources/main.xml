@@ -5,7 +5,8 @@
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <import resource="data_source.xml"/>
-    <import resource="daos_jdbc.xml"/>
+    <import resource="hibernate.xml"/>
+    <import resource="daos.xml"/>
     <import resource="repositories.xml"/>
     <import resource="services.xml"/>
     <import resource="views.xml"/>

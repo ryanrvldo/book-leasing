@@ -23,8 +23,8 @@ public class ReturnRepositoryImpl implements ReturnRepository {
 	}
 
 	@Override
-	public Return add(Return request) throws Exception {
-		return this.dao.insert(request);
+	public void add(Return request) throws Exception {
+		this.dao.insert(request);
 	}
 
 	@Override

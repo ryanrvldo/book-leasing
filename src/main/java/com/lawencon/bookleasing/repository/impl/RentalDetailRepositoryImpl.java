@@ -16,8 +16,8 @@ public class RentalDetailRepositoryImpl implements RentalDetailRepository {
 	}
 
 	@Override
-	public RentalDetail add(RentalDetail request) throws Exception {
-		return this.dao.insert(request);
+	public void add(RentalDetail request) throws Exception {
+		this.dao.insert(request);
 	}
 
 	@Override

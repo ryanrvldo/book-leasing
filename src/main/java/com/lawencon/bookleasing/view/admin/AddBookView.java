@@ -43,10 +43,10 @@ public class AddBookView extends BaseView {
 			book.setPublisher(publisher);
 			book.setLanguage(language);
 
-			Book addedBook = service.addNewBook(book);
-			System.out.printf("%nSuccess added %s to the book list.%nNow add book author and category.%n%n", title);
-			addBookAuthor(addedBook);
-			addBookCategory(addedBook);
+			service.addNewBook(book);
+			System.out.printf("%nSuccess added %s to the book list.%nNow add book author and category.%n%n", book.getTitle());
+			addBookAuthor(book);
+			addBookCategory(book);
 			System.out.println("Success! Thank you.");
 			onViewFinished.onFinished();
 		} catch (Exception e) {
@@ -79,12 +79,12 @@ public class AddBookView extends BaseView {
 
 		Publisher publisher = new Publisher(code, name, city);
 		try {
-			return service.addNewPublisher(publisher);
+			service.addNewPublisher(publisher);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
-		return null;
+		return publisher;
 	}
 
 	private Language checkBookLanguage() {
@@ -103,13 +103,14 @@ public class AddBookView extends BaseView {
 		String name = readFromInput(String.class);
 		System.out.print("Input language code: ");
 		String code = readFromInput(String.class);
+		Language newLanguage = new Language(code, name);
 		try {
-			return service.addNewLanguage(new Language(code, name));
+			service.addNewLanguage(newLanguage);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
-		return null;
+		return newLanguage;
 	}
 
 	private void addBookAuthor(Book book) {
@@ -117,13 +118,15 @@ public class AddBookView extends BaseView {
 		String firstName = readFromInput(String.class);
 		System.out.print("Input author last name: ");
 		String lastName = readFromInput(String.class);
-		Author author = new Author(null, firstName, lastName);
+		Author author = new Author();
+		author.setFirstName(firstName);
+		author.setLastName(lastName);
 		try {
 			Author addedAuthor = service.checkAuthor(author);
 			if (addedAuthor == null || addedAuthor.getId() == null) {
-				addedAuthor = service.addNewAuthor(author);
+				service.addNewAuthor(author);
 			}
-			service.addBookAuthor(addedAuthor, book);
+			service.addBookAuthor(author, book);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
@@ -142,9 +145,9 @@ public class AddBookView extends BaseView {
 		try {
 			Category addedCategory = service.checkCategory(category);
 			if (addedCategory == null || addedCategory.getId() == null) {
-				addedCategory = service.addNewCategory(category);
+				service.addNewCategory(category);
 			}
-			service.addBookCategory(addedCategory, book);
+			service.addBookCategory(category, book);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());

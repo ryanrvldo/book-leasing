@@ -1,0 +1,33 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.lawencon.bookleasing.entity.Book" table="tb_m_book">
+        <id name="id">
+            <generator class="identity"/>
+        </id>
+        <property name="title" not-null="true"/>
+        <property name="description"/>
+        <property name="isbn" not-null="true" unique="true"/>
+        <property name="rating"/>
+        <property name="publicationYear">
+            <column name="publication_year" not-null="true"/>
+        </property>
+        <property name="rentalCost">
+            <column name="rental_cost" not-null="true"/>
+        </property>
+        <property name="replacementCost">
+            <column name="replacement_cost" not-null="true"/>
+        </property>
+        <many-to-one name="language" class="com.lawencon.bookleasing.entity.Language" lazy="false">
+            <column name="language_id"/>
+        </many-to-one>
+        <many-to-one name="publisher" class="com.lawencon.bookleasing.entity.Publisher" lazy="false">
+            <column name="publisher_id"/>
+        </many-to-one>
+    </class>
+
+</hibernate-mapping>

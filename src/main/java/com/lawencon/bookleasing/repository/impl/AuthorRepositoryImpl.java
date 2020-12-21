@@ -16,13 +16,13 @@ public class AuthorRepositoryImpl implements AuthorRepository {
 	}
 
 	@Override
-	public Author add(Author request) throws Exception {
-		return dao.insert(request);
+	public void add(Author request) throws Exception {
+		this.dao.insert(request);
 	}
 
 	@Override
 	public Author get(Author request) throws Exception {
-		return dao.get(request);
+		return this.dao.get(request);
 	}
 
 }

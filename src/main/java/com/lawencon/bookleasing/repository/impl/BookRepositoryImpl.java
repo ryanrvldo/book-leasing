@@ -16,8 +16,8 @@ public class BookRepositoryImpl implements BookRepository {
 	}
 
 	@Override
-	public Book add(Book request) throws Exception {
-		return this.dao.insert(request);
+	public void add(Book request) throws Exception {
+		this.dao.insert(request);
 	}
 
 	@Override

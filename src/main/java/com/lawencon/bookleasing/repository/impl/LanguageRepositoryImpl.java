@@ -16,8 +16,8 @@ public class LanguageRepositoryImpl implements LanguageRepository {
 	}
 
 	@Override
-	public Language add(Language request) throws Exception {
-		return this.dao.insert(request);
+	public void add(Language request) throws Exception {
+		this.dao.insert(request);
 	}
 
 	@Override

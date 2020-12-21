@@ -1,0 +1,20 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.lawencon.bookleasing.entity.BookCategory" table="tb_m_book_category">
+        <id name="id">
+            <generator class="identity"/>
+        </id>
+        <many-to-one name="book" class="com.lawencon.bookleasing.entity.Book">
+            <column name="book_id" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="category" class="com.lawencon.bookleasing.entity.Category">
+            <column name="category_id" not-null="true"/>
+        </many-to-one>
+    </class>
+
+</hibernate-mapping>

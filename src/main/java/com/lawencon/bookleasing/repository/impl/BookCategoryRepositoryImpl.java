@@ -16,8 +16,8 @@ public class BookCategoryRepositoryImpl implements BookCategoryRepository {
 	}
 
 	@Override
-	public BookCategory add(BookCategory request) throws Exception {
-		return this.dao.insert(request);
+	public void add(BookCategory request) throws Exception {
+		this.dao.insert(request);
 	}
 
 	@Override

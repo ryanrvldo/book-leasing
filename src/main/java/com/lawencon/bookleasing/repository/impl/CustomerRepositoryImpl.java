@@ -16,8 +16,8 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 	}
 
 	@Override
-	public Customer add(Customer request) throws Exception {
-		return dao.insert(request);
+	public void add(Customer request) throws Exception {
+		this.dao.insert(request);
 	}
 
 	@Override

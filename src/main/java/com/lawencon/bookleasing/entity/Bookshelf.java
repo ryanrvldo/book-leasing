@@ -7,7 +7,7 @@ public class Bookshelf {
 
 	private Long id;
 	private String code;
-	private Integer rowPositon;
+	private Integer rowPosition;
 	private Integer columnPosition;
 
 	public Long getId() {
@@ -26,12 +26,12 @@ public class Bookshelf {
 		this.code = code;
 	}
 
-	public Integer getRowPositon() {
-		return rowPositon;
+	public Integer getRowPosition() {
+		return rowPosition;
 	}
 
-	public void setRowPositon(Integer rowPositon) {
-		this.rowPositon = rowPositon;
+	public void setRowPosition(Integer rowPosition) {
+		this.rowPosition = rowPosition;
 	}
 
 	public Integer getColumnPosition() {
