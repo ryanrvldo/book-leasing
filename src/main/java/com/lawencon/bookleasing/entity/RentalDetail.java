@@ -3,64 +3,112 @@ package com.lawencon.bookleasing.entity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author Rian Rivaldo Rumapea
  */
+@Entity
+@Table(name = "tb_r_dtl_rental")
+@JsonInclude(Include.NON_NULL)
+@JsonIgnoreProperties(allowSetters = true, value = { "hibernateLazyInitializer" })
 public class RentalDetail {
 
-	private Long id;
-	private RentalHeader rentalHeader;
-	private Inventory inventory;
-	private BigDecimal totalPrice;
-	private LocalDateTime rentalDate;
-	private LocalDateTime returnDate;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	public Long getId() {
-		return id;
-	}
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "hdr_id", nullable = false)
+  private RentalHeader rentalHeader;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "inventory_id", nullable = false)
+  private Inventory inventory;
 
-	public RentalHeader getRentalHeader() {
-		return rentalHeader;
-	}
+  @Column(name = "total_price")
+  private BigDecimal totalPrice;
 
-	public void setRentalHeader(RentalHeader rentalHeader) {
-		this.rentalHeader = rentalHeader;
-	}
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @Column(name = "rental_date", nullable = false)
+  private LocalDateTime rentalDate;
 
-	public Inventory getInventory() {
-		return inventory;
-	}
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @Column(name = "return_date", nullable = false)
+  private LocalDateTime returnDate;
 
-	public void setInventory(Inventory inventory) {
-		this.inventory = inventory;
-	}
+  public RentalDetail() {
+  }
 
-	public BigDecimal getTotalPrice() {
-		return totalPrice;
-	}
+  public RentalDetail(Long id, RentalHeader rentalHeader, Inventory inventory, BigDecimal totalPrice,
+      LocalDateTime rentalDate, LocalDateTime returnDate) {
+	this.id = id;
+	this.rentalHeader = rentalHeader;
+	this.inventory = inventory;
+	this.totalPrice = totalPrice;
+	this.rentalDate = rentalDate;
+	this.returnDate = returnDate;
+  }
 
-	public void setTotalPrice(BigDecimal totalPrice) {
-		this.totalPrice = totalPrice;
-	}
+  public Long getId() {
+	return id;
+  }
 
-	public LocalDateTime getRentalDate() {
-		return rentalDate;
-	}
+  public void setId(Long id) {
+	this.id = id;
+  }
 
-	public void setRentalDate(LocalDateTime rentalDate) {
-		this.rentalDate = rentalDate;
-	}
+  public RentalHeader getRentalHeader() {
+	return rentalHeader;
+  }
 
-	public LocalDateTime getReturnDate() {
-		return returnDate;
-	}
+  public void setRentalHeader(RentalHeader rentalHeader) {
+	this.rentalHeader = rentalHeader;
+  }
 
-	public void setReturnDate(LocalDateTime returnDate) {
-		this.returnDate = returnDate;
-	}
+  public Inventory getInventory() {
+	return inventory;
+  }
+
+  public void setInventory(Inventory inventory) {
+	this.inventory = inventory;
+  }
+
+  public BigDecimal getTotalPrice() {
+	return totalPrice;
+  }
+
+  public void setTotalPrice(BigDecimal totalPrice) {
+	this.totalPrice = totalPrice;
+  }
+
+  public LocalDateTime getRentalDate() {
+	return rentalDate;
+  }
+
+  public void setRentalDate(LocalDateTime rentalDate) {
+	this.rentalDate = rentalDate;
+  }
+
+  public LocalDateTime getReturnDate() {
+	return returnDate;
+  }
+
+  public void setReturnDate(LocalDateTime returnDate) {
+	this.returnDate = returnDate;
+  }
 
 }

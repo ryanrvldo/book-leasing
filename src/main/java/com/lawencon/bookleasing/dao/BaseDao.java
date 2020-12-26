@@ -3,28 +3,31 @@ package com.lawencon.bookleasing.dao;
 import java.util.List;
 
 /**
- * @author Rian Rivaldo Rumapea
+ * @author Rian Rivaldo
  */
+
 public interface BaseDao<T> {
 
-	void insert(T request) throws Exception;
+  T findById(Long id) throws Exception;
 
-	T get(T request) throws Exception;
+  void insert(T data) throws Exception;
 
-	void update(T request) throws Exception;
+  void update(T data) throws Exception;
 
-	void delete(T request) throws Exception;
+  void delete(T data) throws Exception;
 
-	List<T> getAll() throws Exception;
+  void deleteById(Long id) throws Exception;
 
-	default String buildSQLQueryOf(String... queries) {
-		if (queries.length == 0) return "";
+  List<T> findAll() throws Exception;
 
-		StringBuilder builder = new StringBuilder();
-		for (String query : queries) {
-			builder.append(query);
-		}
-		return builder.toString();
+  default String buildQueryOf(String... queries) {
+	if (queries.length == 0) return "";
+
+	StringBuilder builder = new StringBuilder();
+	for (String query : queries) {
+	  builder.append(query);
 	}
+	return builder.toString();
+  }
 
 }

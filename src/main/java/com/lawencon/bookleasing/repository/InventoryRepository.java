@@ -1,14 +1,26 @@
 package com.lawencon.bookleasing.repository;
 
-import com.lawencon.bookleasing.entity.Inventory;
-
 import java.util.List;
 
-/**
- * @author Rian Rivaldo Rumapea
- */
-public interface InventoryRepository extends BaseRepository<Inventory> {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-	List<Inventory> getInventoryList() throws Exception;
+import com.lawencon.bookleasing.entity.Inventory;
+
+/**
+ * @author Rian Rivaldo
+ */
+@Repository
+public interface InventoryRepository extends JpaRepository<Inventory, Long> {
+
+  @Query(value = "FROM Inventory i INNER JOIN i.book b WHERE b.isbn = ?1")
+  Inventory findByBookIsbn(String isbn) throws Exception;
+
+  @Query(value = "SELECT i.id, b.id, b.title, b.isbn, b.rentalCost, b.publicationYear, s "
+      + "FROM Inventory i "
+      + "INNER JOIN i.status s "
+      + "INNER JOIN i.book b ")
+  List<Object[]> findAllBook() throws Exception;
 
 }

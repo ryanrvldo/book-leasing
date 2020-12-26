@@ -7,4 +7,6 @@ import com.lawencon.bookleasing.entity.Customer;
  */
 public interface CustomerDao extends BaseDao<Customer> {
 
+  Customer findByEmail(String email) throws Exception;
+
 }

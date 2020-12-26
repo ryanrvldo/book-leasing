@@ -1,39 +1,48 @@
 package com.lawencon.bookleasing.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
- * @author Rian Rivaldo Rumapea
+ * @author Rian Rivaldo
  */
+@Entity
+@Table(name = "tb_m_category")
 public class Category {
 
-	private Long id;
-	private String name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	public Category() {
-	}
+  @Column(name = "category_name", length = 50, nullable = false)
+  private String name;
 
-	public Category(Long id) {
-		this.id = id;
-	}
+  public Category() {
+  }
 
-	public Category(Long id, String name) {
-		this.id = id;
-		this.name = name;
-	}
+  public Category(Long id, String name) {
+	this.id = id;
+	this.name = name;
+  }
 
-	public Long getId() {
-		return id;
-	}
+  public Long getId() {
+	return id;
+  }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  public void setId(Long id) {
+	this.id = id;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+	return name;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setName(String name) {
+	this.name = name;
+  }
 
 }

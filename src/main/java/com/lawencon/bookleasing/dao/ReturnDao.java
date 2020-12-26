@@ -7,6 +7,8 @@ import com.lawencon.bookleasing.entity.Return;
  */
 public interface ReturnDao extends BaseDao<Return> {
 
-	Double getRentalCost(String receiptNumber) throws Exception;
+  Double getRentalCost(String receiptNumber) throws Exception;
+
+  Return findByHeaderId(Long headerId) throws Exception;
 
 }

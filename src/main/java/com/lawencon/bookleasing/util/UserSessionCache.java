@@ -1,10 +1,12 @@
 package com.lawencon.bookleasing.util;
 
 import com.lawencon.bookleasing.entity.User;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Rian Rivaldo Rumapea
  */
+@Component
 public class UserSessionCache {
 
 	private User activeUser;

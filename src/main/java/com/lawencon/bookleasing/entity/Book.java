@@ -2,118 +2,152 @@ package com.lawencon.bookleasing.entity;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
- * @author Rian Rivaldo Rumapea
+ * @author Rian Rivaldo
  */
+@Entity
+@Table(name = "tb_m_book")
+@JsonInclude(Include.NON_NULL)
+@JsonIgnoreProperties(allowSetters = true, value = { "hibernateLazyInitializer" })
 public class Book {
 
-	private Long id;
-	private String title;
-	private String description;
-	private String isbn;
-	private Double rating;
-	private BigDecimal rentalCost;
-	private BigDecimal replacementCost;
-	private Short publicationYear;
-	private Language language;
-	private Publisher publisher;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	public Book() {
-	}
+  @Column(nullable = false)
+  private String title;
 
-	public Book(Long id) {
-		this.id = id;
-	}
+  private String description;
 
-	public Book(String title, String description, String isbn, Double rating, BigDecimal rentalCost,
-	            BigDecimal replacementCost, Short publicationYear) {
-		this.title = title;
-		this.description = description;
-		this.isbn = isbn;
-		this.rating = rating;
-		this.rentalCost = rentalCost;
-		this.replacementCost = replacementCost;
-		this.publicationYear = publicationYear;
-	}
+  @Column(nullable = false, unique = true)
+  private String isbn;
 
-	public Long getId() {
-		return id;
-	}
+  private Double rating;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  @Column(name = "rental_cost", nullable = false)
+  private BigDecimal rentalCost;
 
-	public String getTitle() {
-		return title;
-	}
+  @Column(name = "replacement_cost", nullable = false)
+  private BigDecimal replacementCost;
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+  @Column(name = "publication_year", nullable = false)
+  private Short publicationYear;
 
-	public String getDescription() {
-		return description;
-	}
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "language_id")
+  private Language language;
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "publisher_id")
+  private Publisher publisher;
 
-	public String getIsbn() {
-		return isbn;
-	}
+  public Book() {
+  }
 
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
+  public Book(String title, String description, String isbn, Double rating, BigDecimal rentalCost,
+      BigDecimal replacementCost, Short publicationYear) {
+	this.title = title;
+	this.description = description;
+	this.isbn = isbn;
+	this.rating = rating;
+	this.rentalCost = rentalCost;
+	this.replacementCost = replacementCost;
+	this.publicationYear = publicationYear;
+  }
 
-	public Double getRating() {
-		return rating;
-	}
+  public Long getId() {
+	return id;
+  }
 
-	public void setRating(Double rating) {
-		this.rating = rating;
-	}
+  public void setId(Long id) {
+	this.id = id;
+  }
 
-	public BigDecimal getRentalCost() {
-		return rentalCost;
-	}
+  public String getTitle() {
+	return title;
+  }
 
-	public void setRentalCost(BigDecimal rentalCost) {
-		this.rentalCost = rentalCost;
-	}
+  public void setTitle(String title) {
+	this.title = title;
+  }
 
-	public BigDecimal getReplacementCost() {
-		return replacementCost;
-	}
+  public String getDescription() {
+	return description;
+  }
 
-	public void setReplacementCost(BigDecimal replacementCost) {
-		this.replacementCost = replacementCost;
-	}
+  public void setDescription(String description) {
+	this.description = description;
+  }
 
-	public Short getPublicationYear() {
-		return publicationYear;
-	}
+  public String getIsbn() {
+	return isbn;
+  }
 
-	public void setPublicationYear(Short publicationYear) {
-		this.publicationYear = publicationYear;
-	}
+  public void setIsbn(String isbn) {
+	this.isbn = isbn;
+  }
 
-	public Language getLanguage() {
-		return language;
-	}
+  public Double getRating() {
+	return rating;
+  }
 
-	public void setLanguage(Language language) {
-		this.language = language;
-	}
+  public void setRating(Double rating) {
+	this.rating = rating;
+  }
 
-	public Publisher getPublisher() {
-		return publisher;
-	}
+  public BigDecimal getRentalCost() {
+	return rentalCost;
+  }
 
-	public void setPublisher(Publisher publisher) {
-		this.publisher = publisher;
-	}
+  public void setRentalCost(BigDecimal rentalCost) {
+	this.rentalCost = rentalCost;
+  }
+
+  public BigDecimal getReplacementCost() {
+	return replacementCost;
+  }
+
+  public void setReplacementCost(BigDecimal replacementCost) {
+	this.replacementCost = replacementCost;
+  }
+
+  public Short getPublicationYear() {
+	return publicationYear;
+  }
+
+  public void setPublicationYear(Short publicationYear) {
+	this.publicationYear = publicationYear;
+  }
+
+  public Language getLanguage() {
+	return language;
+  }
+
+  public void setLanguage(Language language) {
+	this.language = language;
+  }
+
+  public Publisher getPublisher() {
+	return publisher;
+  }
+
+  public void setPublisher(Publisher publisher) {
+	this.publisher = publisher;
+  }
 
 }

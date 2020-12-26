@@ -1,48 +1,71 @@
 package com.lawencon.bookleasing.entity;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
- * @author Rian Rivaldo Rumapea
+ * @author Rian Rivaldo
  */
+@Entity
+@Table(name = "tb_m_book_author")
+@JsonInclude(Include.NON_NULL)
+@JsonIgnoreProperties(allowSetters = true, value = { "hibernateLazyInitializer", "book", "author" })
 public class BookAuthor {
 
-	private Long id;
-	private Author author;
-	private Book book;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	public BookAuthor() {
-	}
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "book_id", nullable = false)
+  private Book book;
 
-	public BookAuthor(Author author) {
-		this.author = author;
-	}
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "author_id", nullable = false)
+  private Author author;
 
-	public BookAuthor(Author author, Book book) {
-		this.author = author;
-		this.book = book;
-	}
+  public BookAuthor() {
+  }
 
-	public Long getId() {
-		return id;
-	}
+  public BookAuthor(Long id, Book book, Author author) {
+	this.id = id;
+	this.book = book;
+	this.author = author;
+  }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  public Long getId() {
+	return id;
+  }
 
-	public Author getAuthor() {
-		return author;
-	}
+  public void setId(Long id) {
+	this.id = id;
+  }
 
-	public void setAuthor(Author author) {
-		this.author = author;
-	}
+  public Book getBook() {
+	return book;
+  }
 
-	public Book getBook() {
-		return book;
-	}
+  public void setBook(Book book) {
+	this.book = book;
+  }
 
-	public void setBook(Book book) {
-		this.book = book;
-	}
+  public Author getAuthor() {
+	return author;
+  }
+
+  public void setAuthor(Author author) {
+	this.author = author;
+  }
 
 }

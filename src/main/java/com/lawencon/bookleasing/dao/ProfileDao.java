@@ -7,4 +7,6 @@ import com.lawencon.bookleasing.entity.Profile;
  */
 public interface ProfileDao extends BaseDao<Profile> {
 
+  Profile findByEmailAndPhone(String email, String phone) throws Exception;
+
 }

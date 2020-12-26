@@ -1,54 +1,75 @@
 package com.lawencon.bookleasing.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author Rian Rivaldo Rumapea
  */
+@Entity
+@Table(name = "tb_m_publisher")
+@JsonInclude(Include.NON_NULL)
 public class Publisher {
 
-	private Long id;
-	private String code;
-	private String name;
-	private String city;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	public Publisher() {
-	}
+  @Column(length = 10, nullable = false, unique = true)
+  private String code;
 
-	public Publisher(String code, String name, String city) {
-		this.code = code;
-		this.name = name;
-		this.city = city;
-	}
+  @Column(name = "publisher_name", nullable = false)
+  private String name;
 
-	public Long getId() {
-		return id;
-	}
+  private String city;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  public Publisher() {
+  }
 
-	public String getCode() {
-		return code;
-	}
+  public Publisher(Long id, String code, String name, String city) {
+	this.id = id;
+	this.code = code;
+	this.name = name;
+	this.city = city;
+  }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+  public Long getId() {
+	return id;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public void setId(Long id) {
+	this.id = id;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public String getCode() {
+	return code;
+  }
 
-	public String getCity() {
-		return city;
-	}
+  public void setCode(String code) {
+	this.code = code;
+  }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+  public String getName() {
+	return name;
+  }
+
+  public void setName(String name) {
+	this.name = name;
+  }
+
+  public String getCity() {
+	return city;
+  }
+
+  public void setCity(String city) {
+	this.city = city;
+  }
 
 }

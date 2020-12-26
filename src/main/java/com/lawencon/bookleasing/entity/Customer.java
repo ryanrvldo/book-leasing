@@ -2,37 +2,73 @@ package com.lawencon.bookleasing.entity;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
- * @author Rian Rivaldo Rumapea
+ * @author Rian Rivaldo
  */
+@Entity
+@Table(name = "tb_m_customer")
+@JsonInclude(Include.NON_NULL)
+@JsonIgnoreProperties(allowSetters = true, value = { "hibernateLazyInitializer", "profile" })
 public class Customer {
 
-	private Long id;
-	private Profile profile;
-	private LocalDateTime createdAt;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	public Long getId() {
-		return id;
-	}
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "profile_id")
+  private Profile profile;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  @Column(name = "created_date")
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  private LocalDateTime createdDate;
 
-	public Profile getProfile() {
-		return profile;
-	}
+  public Customer() {
+  }
 
-	public void setProfile(Profile profile) {
-		this.profile = profile;
-	}
+  public Customer(Long id, Profile profile, LocalDateTime createdDate) {
+	this.id = id;
+	this.profile = profile;
+	this.createdDate = createdDate;
+  }
 
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
+  public Long getId() {
+	return id;
+  }
 
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
+  public void setId(Long id) {
+	this.id = id;
+  }
+
+  public Profile getProfile() {
+	return profile;
+  }
+
+  public void setProfile(Profile profile) {
+	this.profile = profile;
+  }
+
+  public LocalDateTime getCreatedDate() {
+	return createdDate;
+  }
+
+  public void setCreatedDate(LocalDateTime createdAt) {
+	this.createdDate = createdAt;
+  }
 
 }
