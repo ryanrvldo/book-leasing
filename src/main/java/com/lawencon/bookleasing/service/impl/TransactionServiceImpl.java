@@ -3,6 +3,7 @@ package com.lawencon.bookleasing.service.impl;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.persistence.NoResultException;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lawencon.bookleasing.constants.Constants;
 import com.lawencon.bookleasing.entity.Customer;
 import com.lawencon.bookleasing.entity.Inventory;
 import com.lawencon.bookleasing.entity.Profile;
@@ -24,6 +26,7 @@ import com.lawencon.bookleasing.model.TransactionDetailResponse;
 import com.lawencon.bookleasing.model.TransactionRequest;
 import com.lawencon.bookleasing.model.TransactionResponse;
 import com.lawencon.bookleasing.service.CustomerService;
+import com.lawencon.bookleasing.service.InventoryService;
 import com.lawencon.bookleasing.service.RentalDetailService;
 import com.lawencon.bookleasing.service.RentalHeaderService;
 import com.lawencon.bookleasing.service.TransactionService;
@@ -35,19 +38,20 @@ import com.lawencon.bookleasing.service.UserService;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-  private final UserService userService;
-  private final CustomerService customerService;
-  private final RentalHeaderService headerService;
-  private final RentalDetailService detailService;
+  @Autowired
+  private UserService userService;
 
   @Autowired
-  public TransactionServiceImpl(UserService userService, CustomerService customerService,
-      RentalHeaderService headerService, RentalDetailService detailService) {
-	this.userService = userService;
-	this.customerService = customerService;
-	this.headerService = headerService;
-	this.detailService = detailService;
-  }
+  private InventoryService inventoryService;
+
+  @Autowired
+  private CustomerService customerService;
+
+  @Autowired
+  private RentalHeaderService headerService;
+
+  @Autowired
+  private RentalDetailService detailService;
 
   @Transactional
   @Override
@@ -55,14 +59,18 @@ public class TransactionServiceImpl implements TransactionService {
 	ObjectMapper objMapper = new ObjectMapper();
 	TransactionRequest request = objMapper.readValue(data.getBytes(), TransactionRequest.class);
 
-	LocalDateTime dateTimeNow = LocalDateTime.now();
-	Customer customer = new Customer();
-	customer.setProfile(request.getCustomer());
-
-	User user = new User();
-	user.setId(request.getUserId());
-	Optional.ofNullable(userService.getById(user.getId()))
+	User user = Optional
+	    .ofNullable(
+	        userService.getById(Objects.requireNonNull(request.getUserId(), () -> "User id must be submitted.")))
 	    .orElseThrow(() -> new IllegalAccessException("Invalid user!"));
+
+	List<TransactionDetailRequest> detailRequests = Objects.requireNonNull(request.getItems(),
+	    () -> "Items must be submitted.");
+	if (detailRequests.isEmpty()) {
+	  throw new IllegalArgumentException("Detail transaction is empty!");
+	}
+	Customer customer = new Customer();
+	customer.setProfile(Objects.requireNonNull(request.getCustomer(), () -> "Customer data must be submitted."));
 
 	RentalHeader header = new RentalHeader();
 	String receiptNumber = "TRX" + System.currentTimeMillis();
@@ -70,26 +78,25 @@ public class TransactionServiceImpl implements TransactionService {
 	header.setCustomer(customer);
 	header.setUser(user);
 
-	List<TransactionDetailRequest> detailRequests = request.getItems();
-	if (detailRequests.isEmpty()) {
-	  throw new IllegalArgumentException("Detail transaction is empty!");
-	}
-
+	LocalDateTime dateTimeNow = LocalDateTime.now();
 	List<RentalDetail> detailList = new ArrayList<>();
-	detailRequests.forEach(req -> {
-	  Inventory inventory = new Inventory();
-	  inventory.setId(req.getItemId());
-
+	for (TransactionDetailRequest detailRequest : detailRequests) {
+	  Inventory inventory = inventoryService
+	      .getInventoryById(Objects.requireNonNull(detailRequest.getItemId(), () -> "Item id must be submitted."));
+	  if (inventory.getStatus().getStatus().equalsIgnoreCase(Constants.BORROWED_STATUS)) {
+		throw new IllegalArgumentException("Book is not available!");
+	  }
 	  RentalDetail detail = new RentalDetail();
 	  detail.setInventory(inventory);
 	  detail.setRentalDate(dateTimeNow);
-	  detail.setReturnDate(dateTimeNow.plusDays(req.getRentalDays()));
+	  detail.setReturnDate(dateTimeNow.plusDays(detailRequest.getRentalDays()));
 	  detailList.add(detail);
-	});
+	}
 
 	Profile profile = header.getCustomer().getProfile();
 	try {
-	  Customer validatedCustomer = customerService.getCustomerByEmail(profile.getEmail());
+	  Customer validatedCustomer = customerService
+	      .getCustomerByEmail(Objects.requireNonNull(profile.getEmail(), () -> "Customer email must be submitted."));
 	  header.setCustomer(validatedCustomer);
 	} catch (DataIsNotExistsException e) {
 	  customerService.create(header.getCustomer());

@@ -2,6 +2,7 @@ package com.lawencon.bookleasing.service.impl;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.NoResultException;
@@ -27,7 +28,7 @@ public class InventoryServiceImpl implements InventoryService {
   private final InventoryStatusService statusService;
 
   @Autowired
-  public InventoryServiceImpl(@Qualifier("inventory-jpa") InventoryDao dao, InventoryStatusService statusService) {
+  public InventoryServiceImpl(@Qualifier("inventory-hql") InventoryDao dao, InventoryStatusService statusService) {
 	this.dao = dao;
 	this.statusService = statusService;
   }
@@ -44,7 +45,8 @@ public class InventoryServiceImpl implements InventoryService {
 
   @Override
   public Inventory getInventoryById(Long id) throws Exception {
-	return validateGet(() -> dao.findById(id));
+	return Optional.ofNullable(validateGet(() -> dao.findById(id)))
+	    .orElseThrow(() -> new NullPointerException("Invalid item ID."));
   }
 
   @Override
